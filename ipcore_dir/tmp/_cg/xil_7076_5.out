@@ -1,0 +1,17 @@
+SET_PARAMETER ce false
+SET_PARAMETER clocks_per_division 1
+SET_PARAMETER remainder_type Fractional
+SET_PARAMETER operand_sign Signed
+SET_PARAMETER divisor_width 13
+SET_PARAMETER divide_by_zero_detect false
+SET_PARAMETER latency 32
+SET_PARAMETER component_name PreCalcDiv
+SET_PARAMETER dividend_and_quotient_width 17
+SET_PARAMETER sclr false
+SET_PARAMETER latency_configuration Automatic
+SET_PARAMETER sclr_ce_priority SCLR_overrides_CE
+SET_PARAMETER algorithm_type Radix2
+SET_PARAMETER fractional_width 11
+SET_ERROR_CODE 2
+SET_ERROR_MSG  CANCEL: Customization cancelled.
+SET_ERROR_TEXT Finished initializing IP model.	

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbol version="7" name="PreCalcMult">
+    <symboltype>BLOCK</symboltype>
+    <timestamp>2016-5-26T21:28:8</timestamp>
+    <pin polarity="Input" x="0" y="80" name="a[20:0]" />
+    <pin polarity="Input" x="0" y="144" name="b[16:0]" />
+    <pin polarity="Input" x="0" y="240" name="clk" />
+    <pin polarity="Output" x="576" y="80" name="p[37:0]" />
+    <graph>
+        <text style="fontsize:40;fontname:Arial" x="32" y="32">PreCalcMult</text>
+        <rect width="512" x="32" y="32" height="384" />
+        <line x2="32" y1="80" y2="80" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="80" type="pin a[20:0]" />
+        <line x2="32" y1="144" y2="144" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="144" type="pin b[16:0]" />
+        <line x2="32" y1="240" y2="240" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="240" type="pin clk" />
+        <line x2="544" y1="80" y2="80" style="linewidth:W" x1="576" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="540" y="80" type="pin p[37:0]" />
+    </graph>
+</symbol>

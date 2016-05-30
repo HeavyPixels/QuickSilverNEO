@@ -1,0 +1,13 @@
+run
+-ifmt VHDL
+-ent ZBuffer_exdes
+-p xc3s1200e-fg320-4
+-ifn xst.prj
+-write_timing_constraints No
+-iobuf YES
+-max_fanout 100
+-ofn ZBuffer_exdes 
+-ofmt NGC
+-bus_delimiter ()
+-hierarchy_separator /
+-case Maintain
