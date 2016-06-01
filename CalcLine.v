@@ -95,10 +95,10 @@ assign NB = NB_r;
 always@(posedge clk100)
 begin
 	X1_out <= X1_r + Mlong_r;
+	Ycurr_out = Ycurr_r + 1;
 	X2_out <= (Ycurr_out < Ymid_r) ? X2_r + Mtop_r
 	        : (Ycurr_out == Ymid_r) ? {Xmid_r, 10'h0}
 			  : X2_r + Mbottom_r;
-	Ycurr_out <= Ycurr_r + 1;
 	Z1_sum = Z1_r + MZ_r;
 	Z1_out <= Z1_sum[26]?{26{~MZ_r[26]}}:Z1_sum[25:0];
 	R1_sum = R1_r + MR_r;
@@ -209,12 +209,12 @@ begin
 			end
 			NOPUSH:
 			begin		
-				lineStart <= line_active && (X1_r != X2_r);
+				lineStart <= line_active && (X1_r[19:10] != X2_r[19:10]);
 			end
 			PUSH1:
 			begin
 				CalcLine_TriangleFIFO_push <= 1;
-				lineStart <= line_active && (X1_r != X2_r);
+				lineStart <= line_active && (X1_r[19:10] != X2_r[19:10]);
 				if(line_active)
 				begin
 					CalcLine_TriangleFIFO_WriteData <= {X1_out, X2_out, Xmid_r, Mlong_r, Mtop_r, Mbottom_r,

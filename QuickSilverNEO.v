@@ -207,12 +207,20 @@ module QuickSilverNEO(
     );
 	*/
 	wire [7:0] index;
+	wire [223:0] testdata;
+	wire [7:0] sindex;
+	wire [7:0] sin;
 	
 	TestMesh testmesh (
 	.clka(clk100), // input clka
 	.addra(index), // input [7 : 0] addra
-	.douta(VertexBuffer_PreCalc_ReadData) // output [223 : 0] douta
+	.douta(testdata) // output [223 : 0] douta
 	);
+	
+	SLUT slut (
+    .a(sindex), // input [7 : 0] a
+    .spo(sin) // output [7 : 0] spo
+   );
 
 	//-> Triangle Cache ->
 	TestTriangle testtriangle (
@@ -220,7 +228,11 @@ module QuickSilverNEO(
     .nextFrame(nextFrame), 
     .index(index), 
     .VertexBuffer_PreCalc_pop(VertexBuffer_PreCalc_pop), 
-    .VertexBuffer_PreCalc_empty(VertexBuffer_PreCalc_empty)
+    .VertexBuffer_PreCalc_empty(VertexBuffer_PreCalc_empty),
+	 .count(sindex),
+	 .sin(sin),
+	 .testdata(testdata),
+	 .VertexBuffer_PreCalc_ReadData(VertexBuffer_PreCalc_ReadData)
     );
 	 
 	/*FIFO_512x32b bucketreadfifo (

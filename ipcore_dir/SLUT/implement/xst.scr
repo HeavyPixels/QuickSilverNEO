@@ -1,0 +1,14 @@
+
+run
+-ifmt VHDL
+-ent SLUT_exdes 
+-p xc3s1200e-fg320-4
+-ifn xst.prj
+-write_timing_constraints No
+-iobuf YES
+-max_fanout 100
+-ofn SLUT_exdes 
+-ofmt NGC
+-bus_delimiter ()
+-hierarchy_separator /
+-case Maintain

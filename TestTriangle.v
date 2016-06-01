@@ -24,24 +24,64 @@ module TestTriangle#(parameter SIZE=8'd108)(
     input nextFrame,
     output reg [7:0] index,
     input VertexBuffer_PreCalc_pop,
-    output reg VertexBuffer_PreCalc_empty
+    output reg VertexBuffer_PreCalc_empty,
+	 output [7:0] count,
+	 input [7:0] sin,
+	 input [223:0] testdata,
+	 output [223:0] VertexBuffer_PreCalc_ReadData
     );
+	 
+reg [7:0] count = 0;
+reg [1:0] multsel = 0;
+reg signed [19:0] mult;
+reg signed [7:0] sinbuf;
+reg signed [11:0] x1;
+reg signed [11:0] x2;
+reg signed [11:0] x3;
+reg [11:0] x1_o;
+reg [11:0] x2_o;
+reg [11:0] x3_o;
+assign VertexBuffer_PreCalc_ReadData = {8'h00, x1_o, x2_o, x3_o, testdata[179:0]};
 
-//Registered Output decoder
+always@(posedge clk100)
+begin
+	multsel <= multsel + 1;
+	sinbuf <= sin;
+	x1 <= testdata[215:204] - 1280;
+   x2 <= testdata[203:192] - 1280;
+   x3 <= testdata[191:180] - 1280;
+	case(multsel)
+		0: begin
+			mult = x1 * sinbuf;
+			x1_o <= mult[18:7] + 1280;
+		end
+		1: begin
+			mult = x2 * sinbuf;
+			x2_o <= mult[18:7] + 1280;
+		end
+		2: begin
+			mult = x3 * sinbuf;
+			x3_o <= mult[18:7] + 1280;
+		end
+	endcase
+end
+		
+
 always@(posedge clk100)
 begin
 	if(nextFrame)
 	begin
-		 index <= 0;
-		 VertexBuffer_PreCalc_empty <= 0;
+		count <= count + 1;
+		index <= 0;
+		VertexBuffer_PreCalc_empty <= 0;
 	end
 	else
 	begin
 		if(VertexBuffer_PreCalc_pop)
 		begin
-			if(index < SIZE-1) index <= index + 1;
+			if(index < SIZE) index <= index + 1;
 		end
-		VertexBuffer_PreCalc_empty <= (index == SIZE-1);
+		VertexBuffer_PreCalc_empty <= (index == SIZE);
 	end
 end
 

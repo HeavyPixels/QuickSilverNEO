@@ -194,7 +194,7 @@ begin
 				b1[0]<=VertexBuffer_PreCalc_ReadData[ 15:  8]; 
 				b3[0]<=VertexBuffer_PreCalc_ReadData[  7:  0];
 			end
-			'b001:
+			'b100:
 			begin
 				x2[0]<=VertexBuffer_PreCalc_ReadData[215:204]; 
 				x3[0]<=VertexBuffer_PreCalc_ReadData[203:192]; 
@@ -215,7 +215,7 @@ begin
 				b3[0]<=VertexBuffer_PreCalc_ReadData[ 15:  8]; 
 				b1[0]<=VertexBuffer_PreCalc_ReadData[  7:  0];
 			end
-			'b100:
+			'b001:
 			begin
 				x3[0]<=VertexBuffer_PreCalc_ReadData[215:204]; 
 				x1[0]<=VertexBuffer_PreCalc_ReadData[203:192]; 
@@ -285,7 +285,10 @@ always@(posedge clk100)
 begin
 	if(push1)
 	begin
-		PreCalc_TriangleFIFO_WriteData <= {x1[4],8'h0,x1[4],8'h0,x2[4][11:2],m1[2],m2[2],m3[2],y1[4][11:2],y2[4][11:2],y3[4][11:2],z1[4],10'h0,mz[2],nz[0]};
+		if(y1[4][11:2] == y2[4][11:2])
+			PreCalc_TriangleFIFO_WriteData <= {x1[4],8'h0,x2[4],8'h0,x2[4][11:2],m1[2],m2[2],m3[2],y1[4][11:2],y2[4][11:2],y3[4][11:2],z1[4],10'h0,mz[2],nz[0]};
+		else
+			PreCalc_TriangleFIFO_WriteData <= {x1[4],8'h0,x1[4],8'h0,x2[4][11:2],m1[2],m2[2],m3[2],y1[4][11:2],y2[4][11:2],y3[4][11:2],z1[4],10'h0,mz[2],nz[0]};
 		PreCalc_TriangleFIFO_push <= !empty[4];
 	end
 	else if(push2)
@@ -516,51 +519,51 @@ always@(posedge clk100)
 begin
 	if(load_Q)
 	begin
-		Q[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; Q[1]<=Q[0];
+		Q[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; Q[1]<=Q[0];
 	end
 	if(load_m1)
 	begin
-		m1[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; m1[1]<=m1[0]; m1[2]<=m1[1];
+		m1[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; m1[1]<=m1[0]; m1[2]<=m1[1];
 	end
 	if(load_m2)
 	begin
-		m2[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; m2[1]<=m2[0]; m2[2]<=m2[1];
+		m2[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; m2[1]<=m2[0]; m2[2]<=m2[1];
 	end
 	if(load_m3)
 	begin
-		m3[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; m3[1]<=m3[0]; m3[2]<=m3[1];
+		m3[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; m3[1]<=m3[0]; m3[2]<=m3[1];
 	end
 	if(load_mz)
 	begin
-		mz[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; mz[1]<=mz[0]; mz[2]<=mz[1];
+		mz[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; mz[1]<=mz[0]; mz[2]<=mz[1];
 	end
 	if(load_mr)
 	begin
-		mr[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; mr[1]<=mr[0]; mr[2]<=mr[1];
+		mr[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; mr[1]<=mr[0]; mr[2]<=mr[1];
 	end
 	if(load_mg)
 	begin
-		mg[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; mg[1]<=mg[0]; mg[2]<=mg[1];
+		mg[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; mg[1]<=mg[0]; mg[2]<=mg[1];
 	end
 	if(load_mb)
 	begin
-		mb[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; mb[1]<=mb[0]; mb[2]<=mb[1];
+		mb[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; mb[1]<=mb[0]; mb[2]<=mb[1];
 	end
 	if(load_nz)
 	begin
-		nz[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; nz[1]<=nz[0];
+		nz[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; nz[1]<=nz[0];
 	end
 	if(load_nr)
 	begin
-		nr[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; nr[1]<=nr[0];
+		nr[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; nr[1]<=nr[0];
 	end
 	if(load_ng)
 	begin
-		ng[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; ng[1]<=ng[0];
+		ng[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; ng[1]<=ng[0];
 	end
 	if(load_nb)
 	begin
-		nb[0]<=(quotient[16:0]<<10) + {{17{fractional[9]}},fractional[9:0]}; nb[1]<=nb[0];
+		nb[0]<=(quotient[16:0]<<10) + {{17{fractional[10]}},fractional[9:0]}; nb[1]<=nb[0];
 	end
 end
 
